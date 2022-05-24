@@ -1,26 +1,23 @@
-pub struct ArgumentBuilder {
+pub struct Argument<F: Fn(String)> {
     aliases: Vec<String>,
+    callback: Option<F>
 }
 
-pub struct Argument {
-    aliases: Vec<String>,
-}
-
-impl ArgumentBuilder {
-    pub fn build(&self) -> Argument {
+impl<F: Fn(String)> Argument<F> {
+    pub fn new() -> Argument<F> {
         Argument {
-            aliases: self.aliases.clone(),
+            aliases: vec![],
+            callback: None
         }
     }
-
-    pub fn alias(mut self, alias: &str) -> ArgumentBuilder {
+    
+    pub fn alias(mut self, alias: &'static str) -> Self {
         self.aliases.push(alias.to_string());
         self
     }
-}
-
-impl Argument {
-    pub fn new() -> ArgumentBuilder {
-        ArgumentBuilder { aliases: vec![] }
+    
+    pub fn set_callback(mut self, cb: F) -> Self {
+        self.callback = Some(cb);
+        self
     }
 }

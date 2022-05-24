@@ -10,12 +10,11 @@ fn version() {
         .alias("-V")
         .alias("-v")
         .alias("--version")
-        .build();
+        .set_callback(|params| println!("{}", params));
 }
 
 fn callback() {
     let arg = Argument::new()
         .alias("test")
-        .with_callback(|params| println!("Those are the parameters: {}", params))
-        .build();
+        .set_callback(|params| println!("Those are the parameters: {}", params));
 }
