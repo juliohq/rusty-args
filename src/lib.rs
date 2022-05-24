@@ -1,3 +1,3 @@
 mod args;
 
-use args::Argument;
+pub use args::Argument;
